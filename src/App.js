@@ -22,7 +22,7 @@ export default class App extends Component {
         <Router>
         <Navbar/>
         <Switch>
-              <Route exact path="/"><AllNewsItems key="general" pagesize={15} country="in" category="general"/> </Route>
+              <Route exact path="/"><AllNewsItems key="general-1" pagesize={15} country="in" category="general"/> </Route>
               <Route exact path="/business"><AllNewsItems key="business" pagesize={15} country="in" category="business"/> </Route>
               <Route exact path="/entertainment"><AllNewsItems key="entertainment" pagesize={15} country="in" category="entertainment"/> </Route>
               <Route exact path="/general"><AllNewsItems key="general" pagesize={15} country="in" category="general"/> </Route>

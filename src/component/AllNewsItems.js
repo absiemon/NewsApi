@@ -71,13 +71,14 @@ export default class AllNewsItems extends Component {
       pagesize: propTypes.number,
       category: propTypes.string
     }
-    constructor(){
+    constructor(props){
         super();
         this.state={
             articles: [""],//this.articles,//
             page:1,     // for next and prevoius page
             loading: false // when component loaded then loading icons will not be seen
         }
+
     }
 
     async componentDidMount(){  // it will run after the render function // with the help of this we are fatching data from news api
@@ -96,8 +97,12 @@ export default class AllNewsItems extends Component {
         // of articles to null bcz after render componentDidMount automatically set the value of articles.
 
         // WE are storing totalResults bcz we want to manupulate the nextPage funtion (agar article availabe na hoto nextpage func kaam na kare)
-        // with the help of totalResults we will get to know how many articles are comming with the url
-    }
+        // with the help of totalResults we will get to know how many articles are comming with the url.
+
+        document.title = `NewsTimes-${this.props.category}`; {/* we want to change the page title when category changes so find those function which runs when category changes*/}
+              
+      }
+
 
     NextPage = async ()=>{
       // totalResults/20 mujhe no of pages dega ,jitne hame available karane hain to show total results and agr jaise hi page next hote hote isse bada hua we don't have to do anything
@@ -143,8 +148,8 @@ export default class AllNewsItems extends Component {
                 {/* articles is an array that have news as a objects and we are traversing to each object and displaying to a column  */}
                  {/* we are taking key because in maping each element should hava a unique key i.e we can differentiate in each objects and their url is unique */}
                 {!loading && articles.map((element)=>{            
-                    return <div className="col-md-4" key={element.url}>
-                            <NewsItems title={element.title?element.title:"No title Available"} description={element.description?element.description:"No description Available"} imageUrl={element.urlToImage} newsUrl={element.url}/>
+                    return <div className="col-md-4" key={element.url} >
+                            <NewsItems title={element.title?element.title:"No title Available"}  description={element.description?element.description.slice(0, 88):"No description Available"} imageUrl={element.urlToImage} newsUrl={element.url} date={element.publishedAt}/>
                            </div> 
                 })} 
                 
