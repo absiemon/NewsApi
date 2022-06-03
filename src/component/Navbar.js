@@ -15,15 +15,15 @@ export class Navbar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-                <li className="nav-item "><a className="nav-link active " aria-current="page" href="/">Home</a></li>
+                <li className="nav-item "><a className="nav-link active " aria-current="page" href="/"><button type="button" className="btn btn-outline-dark">Home</button></a></li>
                 
-                <li className="nav-item" ><a className="nav-link active" href="/business">Business</a></li>
-                <li className="nav-item" ><a className="nav-link active" href="/entertainment">Entertainment </a></li>
-                <li className="nav-item" ><a className="nav-link active" href="/general">General</a></li>
-                <li className="nav-item" ><a className="nav-link active" href="/health">Health </a></li>
-                <li className="nav-item" ><a className="nav-link active" href="/science">Science </a></li>
-                <li className="nav-item" ><a className="nav-link active" href="/sports">Sports </a></li>
-                <li className="nav-item" ><a className="nav-link active" href="/technology">Technology </a></li>  
+                <li className="nav-item" ><a className="nav-link active" href="/business"><button type="button" className="btn btn-outline-dark">Business</button></a></li>
+                <li className="nav-item" ><a className="nav-link active" href="/entertainment"><button type="button" className="btn btn-outline-dark">Entertainment</button> </a></li>
+                <li className="nav-item" ><a className="nav-link active" href="/general"><button type="button" className="btn btn-outline-dark">General</button></a></li>
+                <li className="nav-item" ><a className="nav-link active" href="/health"><button type="button" className="btn btn-outline-dark">Health</button> </a></li>
+                <li className="nav-item" ><a className="nav-link active" href="/science"><button type="button" className="btn btn-outline-dark">Science</button> </a></li>
+                <li className="nav-item" ><a className="nav-link active" href="/sports"><button type="button" className="btn btn-outline-dark">sports</button> </a></li>
+                <li className="nav-item" ><a className="nav-link active" href="/technology"><button type="button" className="btn btn-outline-dark">Technology</button> </a></li>  
                 
             </ul>
             <form className="d-flex">

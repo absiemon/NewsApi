@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import NewsItems from './NewsItems'
 import Spinner from './spinner'
 import propTypes from 'prop-types'
+// import InfiniteScroll from "react-infinite-scroll-component";
+
 
 export default class AllNewsItems extends Component {
     
@@ -76,7 +78,9 @@ export default class AllNewsItems extends Component {
         this.state={
             articles: [""],//this.articles,//
             page:1,     // for next and prevoius page
-            loading: false // when component loaded then loading icons will not be seen
+            loading: false, // when component loaded then loading icons will not be seen
+            totalResults: 0
+            
         }
 
     }
@@ -118,10 +122,8 @@ export default class AllNewsItems extends Component {
             page: this.state.page +1,
             articles: parsedData.articles,
             loading: false,
-
         })
-    }
-
+      }
     }
     PrevPage = async ()=>{
       let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=18146180c1c547d9a865f6a250c79a71&page=${this.state.page -1}&pagesize=${this.props.pagesize}`;
@@ -134,35 +136,53 @@ export default class AllNewsItems extends Component {
         articles: parsedData.articles,
         loading: false,
       })
-
     }
+
+    // fetchMoreData = async ()=>{
+    //   this.setState({page: this.state.page +1})
+    //   let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=18146180c1c547d9a865f6a250c79a71&page=${this.state.page -1}&pagesize=${this.props.pagesize}`;
+    //   this.setState({ loading: true});
+    //   let data = await fetch(url);
+    //   let parsedData = await data.json();
+
+    //   this.setState({
+    //     articles: this.state.articles.concat(parsedData.articles),
+    //     totalResults: parsedData.totalResults,
+    //     loading: false,
+    //   })
+
+    // }
 
   render() {
       const { articles, page, loading} = this.state;  //object destructuring using this feature we don't have to write this.state.articles
     return (                               // direct articles we can use 
-      <div className="container my-3">
+      <div className="my-3">
             <h2> NewsTimes-Top Headlines</h2>
             {/* when loading is true tabhi hamme spinner ko dikhana hain aur loading will be true until and unless data is fetched  */}
             {loading && <Spinner/>}
-            <div className="row my-3">
-                {/* articles is an array that have news as a objects and we are traversing to each object and displaying to a column  */}
-                 {/* we are taking key because in maping each element should hava a unique key i.e we can differentiate in each objects and their url is unique */}
-                {!loading && articles.map((element)=>{            
-                    return <div className="col-md-4" key={element.url} >
-                            <NewsItems title={element.title?element.title:"No title Available"}  description={element.description?element.description.slice(0, 88):"No description Available"} imageUrl={element.urlToImage} newsUrl={element.url} date={element.publishedAt}/>
-                           </div> 
-                })} 
-                
-                {/* We have used ternary operator while setting the title bcz is my title comes null then hamm waha apne hissaab se kuch bhi display kara de */}
-                {/* // col-md-4 means in a medium devices 4 col will be occupied out of 12 col grid properties of bootstrap */}
-               
-            </div>
+            
+              <div className="container">
+                <div className="row my-3">
+                    {/* articles is an array that have news as a objects and we are traversing to each object and displaying to a column  */}
+                    {/* we are taking key because in maping each element should hava a unique key i.e we can differentiate in each objects and their url is unique */}
+                    {!loading && articles.map((element)=>{            
+                        return <div className="col-md-4" key={element.url} >
+                                <NewsItems   title={element.title?element.title:"No title Available"}  description={element.description?element.description.slice(0, 88):"No description Available"} imageUrl={element.urlToImage} newsUrl={element.url} date={element.publishedAt}/>
+                              </div> 
+                    })} 
+                                                        
+                    {/* We have used ternary operator while setting the title bcz is my title comes null then hamm waha apne hissaab se kuch bhi display kara de */}
+                    {/* // col-md-4 means in a medium devices 4 col will be occupied out of 12 col grid properties of bootstrap */}
+                  
+                </div>
+              </div>
+            
             <div className="container d-flex flex-row-reverse" >
-            <button  type="button" disabled={this.state.page +1 > Math.ceil(this.state.totalResults/this.props.pagesize)} className="btn btn-outline-dark mx-4" onClick={this.NextPage}> &rarr; Next</button> 
-            {/* disabled is a function which works on some condition &raar and &larr is the arrow symbol html */}
-            <button disabled={page<=1} type="button" className="btn btn-outline-dark" onClick={this.PrevPage}> &larr; Previous</button>
+              <button  type="button" disabled={this.state.page +1 > Math.ceil(this.state.totalResults/this.props.pagesize)} className="btn btn-outline-dark mx-4" onClick={this.NextPage}> &rarr; Next</button> 
+                {/* disabled is a function which works on some condition &raar and &larr is the arrow symbol html */}
+              <button disabled={page<=1} type="button" className="btn btn-outline-dark" onClick={this.PrevPage}> &larr; Previous</button> 
 
-            </div>
+            </div>  
          
       </div>
     )
