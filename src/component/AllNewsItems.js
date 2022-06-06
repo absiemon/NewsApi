@@ -86,7 +86,7 @@ export default class AllNewsItems extends Component {
     }
 
     async componentDidMount(){  // it will run after the render function // with the help of this we are fatching data from news api
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=18146180c1c547d9a865f6a250c79a71&pagesize=${this.props.pagesize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&pagesize=${this.props.pagesize}`;
         
         this.setState({ loading: true}); // before fetching the result loading will be true
         let data  = await fetch(url);  // will fetch the url and we also want ki jab tak ye url fetch nahi hota our function should wait so we use async await 
@@ -113,7 +113,7 @@ export default class AllNewsItems extends Component {
       if(!(this.state.page +1 > Math.ceil(this.state.totalResults/this.props.pagesize))){
       // when we are clicking on the next button we have to change link i.e we have to change to page= page+1 and we can do with using &
     
-          let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=18146180c1c547d9a865f6a250c79a71&page=${this.state.page +1}&pagesize=${this.props.pagesize}`;
+          let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page +1}&pagesize=${this.props.pagesize}`;
           this.setState({ loading: true});
           let data = await fetch(url);
           let parsedData = await data.json();
@@ -126,7 +126,7 @@ export default class AllNewsItems extends Component {
       }
     }
     PrevPage = async ()=>{
-      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=18146180c1c547d9a865f6a250c79a71&page=${this.state.page -1}&pagesize=${this.props.pagesize}`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page -1}&pagesize=${this.props.pagesize}`;
       this.setState({ loading: true});
       let data = await fetch(url);
       let parsedData = await data.json();
@@ -156,12 +156,11 @@ export default class AllNewsItems extends Component {
   render() {
       const { articles, page, loading} = this.state;  //object destructuring using this feature we don't have to write this.state.articles
     return (                               // direct articles we can use 
-      <div className="my-3">
+      <div className=" container my-3">
             <h2> NewsTimes-Top Headlines</h2>
             {/* when loading is true tabhi hamme spinner ko dikhana hain aur loading will be true until and unless data is fetched  */}
             {loading && <Spinner/>}
             
-              <div className="container">
                 <div className="row my-3">
                     {/* articles is an array that have news as a objects and we are traversing to each object and displaying to a column  */}
                     {/* we are taking key because in maping each element should hava a unique key i.e we can differentiate in each objects and their url is unique */}
@@ -175,7 +174,7 @@ export default class AllNewsItems extends Component {
                     {/* // col-md-4 means in a medium devices 4 col will be occupied out of 12 col grid properties of bootstrap */}
                   
                 </div>
-              </div>
+              
             
             <div className="container d-flex flex-row-reverse" >
               <button  type="button" disabled={this.state.page +1 > Math.ceil(this.state.totalResults/this.props.pagesize)} className="btn btn-outline-dark mx-4" onClick={this.NextPage}> &rarr; Next</button> 
