@@ -103,7 +103,7 @@ export default class AllNewsItems extends Component {
         // WE are storing totalResults bcz we want to manupulate the nextPage funtion (agar article availabe na hoto nextpage func kaam na kare)
         // with the help of totalResults we will get to know how many articles are comming with the url.
 
-        document.title = `NewsTimes-${this.props.category}`; {/* we want to change the page title when category changes so find those function which runs when category changes*/}
+        document.title = `NewsTimes-${this.props.category}(${parsedData.totalResults})`; {/* we want to change the page title when category changes so find those function which runs when category changes*/}
               
       }
 

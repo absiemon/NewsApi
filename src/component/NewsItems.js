@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
                                                   
 export default class NewsItems extends Component {
+
+  setImageError = (e)=>{
+    e.currentTarget.src = "default.jpg";
+  }
   render(){
     let {title , description, imageUrl, newsUrl, date} = this.props;
     return (
       <div>
         <div className="card">
-            <img src={imageUrl} className={{ height: "10px"}} alt="..."/>
+            <img src={imageUrl} className={{ height: "10px"}} alt="..." onError={this.setImageError} />
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <p className="card-text">{description}</p>
